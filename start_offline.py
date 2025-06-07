@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import os
-import sys
 import subprocess
+import sys
 
 # 完全オフライン設定
 os.environ["STREAMLIT_BROWSER_GATHER_USAGE_STATS"] = "false"
@@ -24,5 +24,5 @@ if __name__ == "__main__":
         "--server.enableXsrfProtection", "false",
         "--server.headless", "true"
     ]
-    
+
     subprocess.run(cmd)
