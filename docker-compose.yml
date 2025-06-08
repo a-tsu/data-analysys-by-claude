@@ -10,8 +10,8 @@ services:
       - STREAMLIT_TELEMETRY_DISABLED=true
       - PLOTLY_RENDERER=json
     volumes:
-      # Optional: mount data directory if you want to persist data
-      # - ./data:/app/data
+      # Mount data directory to enable external data files
+      - ./data:/app/data
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]

@@ -1,0 +1,72 @@
+[
+  {
+    "customer_id": 1,
+    "age": 28,
+    "gender": "男性",
+    "purchase_amount": 45000,
+    "satisfaction": 4
+  },
+  {
+    "customer_id": 2,
+    "age": 35,
+    "gender": "女性",
+    "purchase_amount": 67000,
+    "satisfaction": 5
+  },
+  {
+    "customer_id": 3,
+    "age": 42,
+    "gender": "男性",
+    "purchase_amount": 23000,
+    "satisfaction": 3
+  },
+  {
+    "customer_id": 4,
+    "age": 29,
+    "gender": "女性",
+    "purchase_amount": 89000,
+    "satisfaction": 5
+  },
+  {
+    "customer_id": 5,
+    "age": 55,
+    "gender": "男性",
+    "purchase_amount": 34000,
+    "satisfaction": 2
+  },
+  {
+    "customer_id": 6,
+    "age": 31,
+    "gender": "女性",
+    "purchase_amount": 56000,
+    "satisfaction": 4
+  },
+  {
+    "customer_id": 7,
+    "age": 38,
+    "gender": "男性",
+    "purchase_amount": 78000,
+    "satisfaction": 5
+  },
+  {
+    "customer_id": 8,
+    "age": 26,
+    "gender": "女性",
+    "purchase_amount": 43000,
+    "satisfaction": 3
+  },
+  {
+    "customer_id": 9,
+    "age": 47,
+    "gender": "男性",
+    "purchase_amount": 92000,
+    "satisfaction": 4
+  },
+  {
+    "customer_id": 10,
+    "age": 33,
+    "gender": "女性",
+    "purchase_amount": 61000,
+    "satisfaction": 5
+  }
+]

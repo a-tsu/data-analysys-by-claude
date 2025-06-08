@@ -1,4 +1,6 @@
+import json
 import os
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -21,7 +23,19 @@ st.markdown("---")
 
 
 @st.cache_data
-def generate_mock_sales_data():
+def load_sales_data():
+    """外部CSVファイルから売上データを読み込み、存在しない場合はモックデータを生成"""
+    sales_file = Path("data/sales_data.csv")
+    
+    if sales_file.exists():
+        try:
+            df = pd.read_csv(sales_file)
+            df["date"] = pd.to_datetime(df["date"])
+            return df
+        except Exception as e:
+            st.error(f"売上データの読み込みエラー: {e}")
+    
+    # フォールバック: モックデータを生成
     dates = pd.date_range(start="2024-01-01", end="2024-12-31", freq="D")
     np.random.seed(42)
     sales = (
@@ -43,7 +57,19 @@ def generate_mock_sales_data():
 
 
 @st.cache_data
-def generate_mock_customer_data():
+def load_customer_data():
+    """外部JSONファイルから顧客データを読み込み、存在しない場合はモックデータを生成"""
+    customer_file = Path("data/customer_data.json")
+    
+    if customer_file.exists():
+        try:
+            with open(customer_file, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            return pd.DataFrame(data)
+        except Exception as e:
+            st.error(f"顧客データの読み込みエラー: {e}")
+    
+    # フォールバック: モックデータを生成
     np.random.seed(123)
     ages = np.random.normal(35, 12, 1000)
     ages = np.clip(ages, 18, 80).astype(int)
@@ -61,8 +87,8 @@ def generate_mock_customer_data():
     )
 
 
-sales_data = generate_mock_sales_data()
-customer_data = generate_mock_customer_data()
+sales_data = load_sales_data()
+customer_data = load_customer_data()
 
 sidebar = st.sidebar
 sidebar.header("📋 フィルター設定")

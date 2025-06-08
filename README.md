@@ -108,6 +108,39 @@ uv run ruff check app.py
 └── README.md            # このファイル
 ```
 
+## データ設定
+
+### 外部データファイルの使用
+
+アプリケーションは `data/` ディレクトリ内の外部データファイルを読み込みます：
+
+- **売上データ**: `data/sales_data.csv` (必須列: date, sales, category, region)
+- **顧客データ**: `data/customer_data.json` (必須フィールド: customer_id, age, gender, purchase_amount, satisfaction)
+
+ファイルが存在しない場合は、自動的にモックデータが生成されます。
+
+### サンプルデータ形式
+
+**sales_data.csv**
+```csv
+date,sales,category,region
+2024-01-01,89234.56,電子機器,東京
+2024-01-02,95432.10,衣類,大阪
+```
+
+**customer_data.json**
+```json
+[
+  {
+    "customer_id": 1,
+    "age": 28,
+    "gender": "男性",
+    "purchase_amount": 45000,
+    "satisfaction": 4
+  }
+]
+```
+
 ## 分析機能
 
 このダッシュボードでは以下の分析が可能です：
