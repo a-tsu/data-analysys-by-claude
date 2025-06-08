@@ -12,8 +12,10 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 COPY pyproject.toml uv.lock ./
 
 # Install dependencies with cache mount for faster rebuilds
+ENV UV_CACHE_DIR=/root/.cache/uv
+ENV UV_LINK_MODE=copy
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --no-dev
+    uv sync --no-dev --frozen
 
 # Copy application files (separate layer for code changes)
 COPY app.py main.py start_offline.py ./
