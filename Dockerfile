@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 # Use Python 3.11 slim image
 FROM python:3.11-slim
 
@@ -10,8 +11,9 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 # Copy only dependency files first for better caching
 COPY pyproject.toml uv.lock ./
 
-# Install dependencies (this layer will be cached if dependencies don't change)
-RUN uv sync --no-dev
+# Install dependencies with cache mount for faster rebuilds
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --no-dev
 
 # Copy application files (separate layer for code changes)
 COPY app.py main.py start_offline.py ./

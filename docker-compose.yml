@@ -2,13 +2,19 @@ version: '3.8'
 
 services:
   data-analysis-dashboard:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+      # Enable BuildKit for cache mounts
+      args:
+        BUILDKIT_INLINE_CACHE: 1
     ports:
       - "8501:8501"
     environment:
       - STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
       - STREAMLIT_TELEMETRY_DISABLED=true
       - PLOTLY_RENDERER=json
+      - DOCKER_BUILDKIT=1
     volumes:
       # Mount data directory to enable external data files
       - ./data:/app/data
