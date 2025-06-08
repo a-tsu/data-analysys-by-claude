@@ -7,14 +7,15 @@ WORKDIR /app
 # Install uv
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
-# Copy project files
+# Copy only dependency files first for better caching
 COPY pyproject.toml uv.lock ./
 
-# Install dependencies
+# Install dependencies (this layer will be cached if dependencies don't change)
 RUN uv sync --no-dev
 
-# Copy application files
-COPY . .
+# Copy application files (separate layer for code changes)
+COPY app.py main.py start_offline.py ./
+COPY ruff.toml ./
 
 # Set environment variables for streamlit
 ENV STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
