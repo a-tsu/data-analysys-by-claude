@@ -32,6 +32,17 @@ uv sync
 
 ## 使用方法
 
+### Docker起動（推奨）
+
+```bash
+# Docker Composeで起動
+docker-compose up -d
+
+# または、Dockerで直接起動
+docker build -t data-analysis-dashboard .
+docker run -p 8501:8501 data-analysis-dashboard
+```
+
 ### 基本起動
 
 ```bash
@@ -53,9 +64,9 @@ STREAMLIT_BROWSER_GATHER_USAGE_STATS=false STREAMLIT_TELEMETRY_DISABLED=true uv 
 
 ### アクセス方法
 
-1. **ローカルアクセス**: http://localhost:8501
-2. **WSL2からWindows**: http://172.28.224.170:8501
-3. **コードフォーマット後**: http://localhost:8501
+1. **Dockerアクセス**: http://localhost:8501
+2. **ローカルアクセス**: http://localhost:8501
+3. **WSL2からWindows**: http://172.28.224.170:8501
 
 ### WSL2でのポートフォワーディング
 
