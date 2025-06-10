@@ -1,0 +1,81 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.dashboard-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.metrics-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.metric-card {
+  flex: 1;
+  min-width: 200px;
+}
+
+.charts-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.charts-bottom-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.chart-card {
+  padding: 16px;
+}
+
+.filter-panel {
+  width: 300px;
+  padding: 16px;
+  border-right: 1px solid #e0e0e0;
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
+.main-content {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.layout-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .charts-row,
+  .charts-bottom-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .metrics-row {
+    flex-direction: column;
+  }
+  
+  .layout-container {
+    flex-direction: column;
+  }
+  
+  .filter-panel {
+    width: 100%;
+    max-height: none;
+    border-right: none;
+    border-bottom: 1px solid #e0e0e0;
+  }
+}

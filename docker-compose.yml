@@ -1,27 +1,36 @@
 version: '3.8'
 
 services:
-  data-analysis-dashboard:
+  backend:
     build:
       context: .
-      dockerfile: Dockerfile
-      # Enable BuildKit for cache mounts
-      args:
-        BUILDKIT_INLINE_CACHE: 1
+      dockerfile: Dockerfile.backend
     ports:
-      - "8501:8501"
-    environment:
-      - STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
-      - STREAMLIT_TELEMETRY_DISABLED=true
-      - PLOTLY_RENDERER=json
-      - DOCKER_BUILDKIT=1
+      - "8000:8000"
     volumes:
-      # Mount data directory to enable external data files
-      - ./data:/app/data
+      - ./data:/app/data:ro
+    environment:
+      - PYTHONPATH=/app
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 40s
+      start_period: 10s
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
