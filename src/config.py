@@ -11,9 +11,7 @@ class DIContainer:
         self._data_analysis_use_case = None
 
     def _setup_environment(self):
-        os.environ["STREAMLIT_BROWSER_GATHER_USAGE_STATS"] = "false"
-        os.environ["STREAMLIT_TELEMETRY_DISABLED"] = "true"
-        os.environ["PLOTLY_RENDERER"] = "json"
+        pass
 
     @property
     def sales_repository(self):
