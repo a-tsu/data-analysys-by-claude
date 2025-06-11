@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component Storybook</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .component-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .component-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .component-description {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .story-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .story-link {
+            display: inline-block;
+            padding: 6px 12px;
+            background: #0066cc;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .story-link:hover {
+            background: #0052a3;
+        }
+        .main-app-link {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+        .main-app-link:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📚 Component Storybook</h1>
+        <p>フロントエンドコンポーネントのストーリーとドキュメント</p>
+        <a href="../" class="main-app-link">🏠 メインアプリケーション</a>
+    </div>
+
+    <div class="component-grid">
+        <div class="component-card">
+            <div class="component-title">📊 MetricsCards</div>
+            <div class="component-description">売上、顧客数、満足度などの主要メトリクスを表示するカードコンポーネント</div>
+            <p><strong>Stories:</strong> Default, HighValues, LowValues, NoData</p>
+            <p><strong>Props:</strong> metrics: Metrics | null</p>
+        </div>
+
+        <div class="component-card">
+            <div class="component-title">📈 Charts</div>
+            <div class="component-description">売上推移、カテゴリ別構成、地域別売上、年齢分布を表示するチャートコンポーネント</div>
+            <p><strong>Stories:</strong> Default, HighVolumeData, MinimalData, EmptyData, NoData</p>
+            <p><strong>Props:</strong> chartData: ChartData | null</p>
+        </div>
+
+        <div class="component-card">
+            <div class="component-title">🎛️ FilterPanel</div>
+            <div class="component-description">期間、カテゴリ、地域、売上範囲、年齢などのフィルター設定パネル</div>
+            <p><strong>Stories:</strong> Default, WithLimitedOptions, WithExtensiveOptions, EmptyOptions</p>
+            <p><strong>Props:</strong> DataServiceを通じてフィルターオプションを取得</p>
+        </div>
+
+        <div class="component-card">
+            <div class="component-title">📋 DataTables</div>
+            <div class="component-description">売上データと顧客データをタブ形式で表示するテーブルコンポーネント</div>
+            <p><strong>Stories:</strong> Default, LargeDataset, SmallDataset, HighSatisfactionData, LowSatisfactionData, EmptyData, NullData</p>
+            <p><strong>Props:</strong> salesData: SalesData[] | null, customerData: CustomerData[] | null</p>
+        </div>
+
+        <div class="component-card">
+            <div class="component-title">🎯 MatrixView</div>
+            <div class="component-description">カテゴリ×地域、年齢層×満足度、月別×カテゴリのクロス集計表示</div>
+            <p><strong>Stories:</strong> Default, SmallDataset, SingleCategoryRegion, HighSatisfactionCustomers, LowSatisfactionCustomers, WideAgeRange, EmptyData, NullData</p>
+            <p><strong>Props:</strong> salesData: SalesData[] | null, customerData: CustomerData[] | null, chartData: ChartData | null</p>
+        </div>
+    </div>
+
+    <div style="margin-top: 40px; padding: 20px; background: white; border-radius: 8px;">
+        <h3>📁 Story Files</h3>
+        <p>各コンポーネントのStoryファイルは以下に作成されています：</p>
+        <ul>
+            <li><code>src/app/components/metrics-cards/metrics-cards.stories.ts</code></li>
+            <li><code>src/app/components/charts/charts.stories.ts</code></li>
+            <li><code>src/app/components/filter-panel/filter-panel.stories.ts</code></li>
+            <li><code>src/app/components/data-tables/data-tables.stories.ts</code></li>
+            <li><code>src/app/components/matrix-view/matrix-view.stories.ts</code></li>
+        </ul>
+        
+        <h3>🛠️ 開発環境</h3>
+        <p>正式なStorybookサーバーを起動するには：</p>
+        <pre style="background: #f8f9fa; padding: 10px; border-radius: 4px;">npm run storybook</pre>
+        
+        <h3>📝 使用方法</h3>
+        <p>各コンポーネントには複数のストーリーが定義されており、異なるプロパティ値でのコンポーネントの動作を確認できます。</p>
+    </div>
+</body>
+</html>

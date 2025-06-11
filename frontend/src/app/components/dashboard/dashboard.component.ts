@@ -2,12 +2,14 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subject, combineLatest } from 'rxjs';
 import { takeUntil, switchMap, startWith } from 'rxjs/operators';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { DataService } from '../../services/data.service';
 import { FilterPanelComponent } from '../filter-panel/filter-panel.component';
 import { MetricsCardsComponent } from '../metrics-cards/metrics-cards.component';
 import { ChartsComponent } from '../charts/charts.component';
 import { DataTablesComponent } from '../data-tables/data-tables.component';
+import { MatrixViewComponent } from '../matrix-view/matrix-view.component';
 import { 
   SalesData, 
   CustomerData, 
@@ -20,10 +22,12 @@ import {
   standalone: true,
   imports: [
     CommonModule,
+    MatTabsModule,
     FilterPanelComponent,
     MetricsCardsComponent,
     ChartsComponent,
-    DataTablesComponent
+    DataTablesComponent,
+    MatrixViewComponent
   ],
   template: `
     <div class="layout-container">
@@ -35,15 +39,36 @@ import {
         <div class="dashboard-container">
           <app-metrics-cards [metrics]="metrics"></app-metrics-cards>
           
-          <app-charts [chartData]="chartData"></app-charts>
-          
-          <app-data-tables 
-            [salesData]="salesData" 
-            [customerData]="customerData">
-          </app-data-tables>
+          <mat-tab-group class="dashboard-tabs">
+            <mat-tab label="グラフ表示">
+              <div class="tab-content">
+                <app-charts [chartData]="chartData"></app-charts>
+              </div>
+            </mat-tab>
+            
+            <mat-tab label="マトリクス表示">
+              <div class="tab-content">
+                <app-matrix-view 
+                  [salesData]="salesData"
+                  [customerData]="customerData"
+                  [chartData]="chartData">
+                </app-matrix-view>
+              </div>
+            </mat-tab>
+            
+            <mat-tab label="データテーブル">
+              <div class="tab-content">
+                <app-data-tables 
+                  [salesData]="salesData" 
+                  [customerData]="customerData">
+                </app-data-tables>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
           
           <div class="footer-note">
-            <p><em>*このダッシュボードはモックアップデータを使用しています。</em></p>
+            <p><em>*このダッシュボードはPostgreSQLデータベースからのデータを表示しています。</em></p>
+            <p><a href="/assets/storybook.html" target="_blank" style="color: #1976d2;">📚 コンポーネントStorybook</a></p>
           </div>
         </div>
       </div>
@@ -87,6 +112,14 @@ import {
       background-color: rgba(255, 255, 255, 0.7);
       border-radius: 8px;
       border: 1px solid #e0e0e0;
+    }
+
+    .dashboard-tabs {
+      margin-top: 24px;
+    }
+
+    .tab-content {
+      padding: 24px 0;
     }
 
     @media (max-width: 768px) {

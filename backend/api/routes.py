@@ -3,6 +3,7 @@ from typing import List
 
 from fastapi import APIRouter, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.api.models import (
     ChartDataPoint,
@@ -16,19 +17,20 @@ from backend.api.models import (
 from src.application.use_cases import DataAnalysisUseCase
 from src.config import DIContainer
 from src.domain.models import FilterCriteria
+from src.infrastructure.database import get_database
 
 router = APIRouter()
 
 
-def get_use_case() -> DataAnalysisUseCase:
-    container = DIContainer()
+async def get_use_case(db: AsyncSession = Depends(get_database)) -> DataAnalysisUseCase:
+    container = DIContainer(db_session=db)
     return container.data_analysis_use_case
 
 
 @router.get("/api/filter-options", response_model=FilterOptionsResponse)
 async def get_filter_options(use_case: DataAnalysisUseCase = Depends(get_use_case)):
-    sales_data = use_case.sales_repository.get_sales_data()
-    customer_data = use_case.customer_repository.get_customer_data()
+    sales_data = await use_case.sales_repository.get_sales_data()
+    customer_data = await use_case.customer_repository.get_customer_data()
     
     categories = list(set(sale.category for sale in sales_data))
     regions = list(set(sale.region for sale in sales_data))
@@ -66,7 +68,7 @@ async def get_sales_data(
         satisfaction_filter=filter_request.satisfaction_filter
     )
     
-    sales_data = use_case.get_filtered_sales_data(filters)
+    sales_data = await use_case.get_filtered_sales_data(filters)
     
     return [
         SalesDataResponse(
@@ -94,7 +96,7 @@ async def get_customer_data(
         satisfaction_filter=filter_request.satisfaction_filter
     )
     
-    customer_data = use_case.get_filtered_customer_data(filters)
+    customer_data = await use_case.get_filtered_customer_data(filters)
     
     return [
         CustomerDataResponse(
@@ -123,8 +125,8 @@ async def get_metrics(
         satisfaction_filter=filter_request.satisfaction_filter
     )
     
-    sales_data = use_case.get_filtered_sales_data(filters)
-    customer_data = use_case.get_filtered_customer_data(filters)
+    sales_data = await use_case.get_filtered_sales_data(filters)
+    customer_data = await use_case.get_filtered_customer_data(filters)
     
     metrics = use_case.calculate_metrics(sales_data, customer_data)
     
@@ -151,8 +153,8 @@ async def get_chart_data(
         satisfaction_filter=filter_request.satisfaction_filter
     )
     
-    sales_data = use_case.get_filtered_sales_data(filters)
-    customer_data = use_case.get_filtered_customer_data(filters)
+    sales_data = await use_case.get_filtered_sales_data(filters)
+    customer_data = await use_case.get_filtered_customer_data(filters)
     
     chart_data = use_case.generate_chart_data(sales_data, customer_data)
     

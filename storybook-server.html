@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component Storybook</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .component-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .component-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .component-description {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .story-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .story-link {
+            display: inline-block;
+            padding: 6px 12px;
+            background: #0066cc;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .story-link:hover {
+            background: #0052a3;
+        }
+        .main-app-link {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+        .main-app-link:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📚 Component Storybook</h1>
+        <p>各コンポーネントのストーリーとサンプルデータを確認できます。</p>
+        <a href="http://localhost:4200" class="main-app-link">🏠 メインアプリケーション</a>
+    </div>
+
+    <div class="component-grid">
+        <div class="component-card">
+            <div class="component-title">📊 MetricsCards</div>
+            <div class="component-description">売上、顧客数、満足度などの主要メトリクスを表示するカードコンポーネント</div>
+            <div class="story-links">
+                <a href="#" class="story-link" onclick="showStory('MetricsCards', 'Default')">デフォルト</a>
+                <a href="#" class="story-link" onclick="showStory('MetricsCards', 'HighValues')">高い値</a>
+                <a href="#" class="story-link" onclick="showStory('MetricsCards', 'LowValues')">低い値</a>
+                <a href="#" class="story-link" onclick="showStory('MetricsCards', 'NoData')">データなし</a>
+            </div>
+        </div>
+
+        <div class="component-card">
+            <div class="component-title">📈 Charts</div>
+            <div class="component-description">売上推移、カテゴリ別構成、地域別売上、年齢分布を表示するチャートコンポーネント</div>
+            <div class="story-links">
+                <a href="#" class="story-link" onclick="showStory('Charts', 'Default')">デフォルト</a>
+                <a href="#" class="story-link" onclick="showStory('Charts', 'HighVolumeData')">大量データ</a>
+                <a href="#" class="story-link" onclick="showStory('Charts', 'MinimalData')">最小データ</a>
+                <a href="#" class="story-link" onclick="showStory('Charts', 'EmptyData')">空データ</a>
+            </div>
+        </div>
+
+        <div class="component-card">
+            <div class="component-title">🎛️ FilterPanel</div>
+            <div class="component-description">期間、カテゴリ、地域、売上範囲、年齢などのフィルター設定パネル</div>
+            <div class="story-links">
+                <a href="#" class="story-link" onclick="showStory('FilterPanel', 'Default')">デフォルト</a>
+                <a href="#" class="story-link" onclick="showStory('FilterPanel', 'WithLimitedOptions')">限定オプション</a>
+                <a href="#" class="story-link" onclick="showStory('FilterPanel', 'WithExtensiveOptions')">豊富なオプション</a>
+                <a href="#" class="story-link" onclick="showStory('FilterPanel', 'EmptyOptions')">空オプション</a>
+            </div>
+        </div>
+
+        <div class="component-card">
+            <div class="component-title">📋 DataTables</div>
+            <div class="component-description">売上データと顧客データをタブ形式で表示するテーブルコンポーネント</div>
+            <div class="story-links">
+                <a href="#" class="story-link" onclick="showStory('DataTables', 'Default')">デフォルト</a>
+                <a href="#" class="story-link" onclick="showStory('DataTables', 'LargeDataset')">大量データ</a>
+                <a href="#" class="story-link" onclick="showStory('DataTables', 'SmallDataset')">少量データ</a>
+                <a href="#" class="story-link" onclick="showStory('DataTables', 'HighSatisfactionData')">高満足度データ</a>
+                <a href="#" class="story-link" onclick="showStory('DataTables', 'LowSatisfactionData')">低満足度データ</a>
+            </div>
+        </div>
+
+        <div class="component-card">
+            <div class="component-title">🎯 MatrixView</div>
+            <div class="component-description">カテゴリ×地域、年齢層×満足度、月別×カテゴリのクロス集計表示</div>
+            <div class="story-links">
+                <a href="#" class="story-link" onclick="showStory('MatrixView', 'Default')">デフォルト</a>
+                <a href="#" class="story-link" onclick="showStory('MatrixView', 'SmallDataset')">小規模データ</a>
+                <a href="#" class="story-link" onclick="showStory('MatrixView', 'HighSatisfactionCustomers')">高満足度顧客</a>
+                <a href="#" class="story-link" onclick="showStory('MatrixView', 'WideAgeRange')">幅広い年齢層</a>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 40px; padding: 20px; background: white; border-radius: 8px; text-align: center;">
+        <h3>📝 Story Files</h3>
+        <p>各コンポーネントのStoryファイルは以下に作成されています：</p>
+        <ul style="text-align: left; max-width: 600px; margin: 0 auto;">
+            <li><code>frontend/src/app/components/metrics-cards/metrics-cards.stories.ts</code></li>
+            <li><code>frontend/src/app/components/charts/charts.stories.ts</code></li>
+            <li><code>frontend/src/app/components/filter-panel/filter-panel.stories.ts</code></li>
+            <li><code>frontend/src/app/components/data-tables/data-tables.stories.ts</code></li>
+            <li><code>frontend/src/app/components/matrix-view/matrix-view.stories.ts</code></li>
+        </ul>
+    </div>
+
+    <script>
+        function showStory(component, story) {
+            alert(`${component}の${story}ストーリーが選択されました。\n\n実際のStorybookでは、この選択に基づいてコンポーネントが表示されます。\n\n現在は代替として http://localhost:4200 でメインアプリケーションをご確認ください。`);
+        }
+    </script>
+</body>
+</html>

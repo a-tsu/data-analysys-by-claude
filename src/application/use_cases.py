@@ -22,8 +22,8 @@ class DataAnalysisUseCase:
         self.sales_repository = sales_repository
         self.customer_repository = customer_repository
 
-    def get_filtered_sales_data(self, filters: FilterCriteria) -> List[SalesData]:
-        sales_data = self.sales_repository.get_sales_data()
+    async def get_filtered_sales_data(self, filters: FilterCriteria) -> List[SalesData]:
+        sales_data = await self.sales_repository.get_sales_data()
         
         if not filters:
             return sales_data
@@ -35,8 +35,8 @@ class DataAnalysisUseCase:
         
         return filtered_data
 
-    def get_filtered_customer_data(self, filters: FilterCriteria) -> List[CustomerData]:
-        customer_data = self.customer_repository.get_customer_data()
+    async def get_filtered_customer_data(self, filters: FilterCriteria) -> List[CustomerData]:
+        customer_data = await self.customer_repository.get_customer_data()
         
         if not filters:
             return customer_data
@@ -103,10 +103,12 @@ class DataAnalysisUseCase:
         )
 
     def _matches_sales_filters(self, sale: SalesData, filters: FilterCriteria) -> bool:
-        if filters.date_range and not (
-            filters.date_range[0] <= sale.date <= filters.date_range[1]
-        ):
-            return False
+        if filters.date_range:
+            sale_date = sale.date.date() if hasattr(sale.date, 'date') else sale.date
+            start_date = filters.date_range[0].date() if hasattr(filters.date_range[0], 'date') else filters.date_range[0]
+            end_date = filters.date_range[1].date() if hasattr(filters.date_range[1], 'date') else filters.date_range[1]
+            if not (start_date <= sale_date <= end_date):
+                return False
         
         if filters.categories and sale.category not in filters.categories:
             return False

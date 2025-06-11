@@ -1,0 +1,21 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Install Angular CLI
+RUN npm install -g @angular/cli@17.3.10
+
+# Copy package files
+COPY frontend/package*.json ./
+
+# Install dependencies
+RUN npm install --legacy-peer-deps
+
+# Copy source code
+COPY frontend/ .
+
+# Expose Storybook port
+EXPOSE 6006
+
+# Start Storybook in development mode
+CMD ["npm", "run", "storybook"]
