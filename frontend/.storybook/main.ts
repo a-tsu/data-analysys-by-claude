@@ -4,7 +4,6 @@ const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
     '@storybook/addon-essentials',
-    '@storybook/addon-docs',
   ],
   framework: {
     name: '@storybook/angular',
@@ -18,6 +17,18 @@ const config: StorybookConfig = {
   staticDirs: ['../src/assets'],
   core: {
     disableTelemetry: true,
+  },
+  webpackFinal: async (config) => {
+    config.resolve = config.resolve || {};
+    config.resolve.fallback = config.resolve.fallback || {};
+    
+    // Ensure proper module resolution
+    config.resolve.modules = [
+      'node_modules',
+      '../node_modules'
+    ];
+    
+    return config;
   },
 };
 
