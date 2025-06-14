@@ -421,43 +421,6 @@ docker compose logs -f backend
 docker compose logs -f frontend
 ```
 
-## 🔮 今後の改善・拡張案
-
-### 短期改善 (1-2週間)
-- [ ] **テスト実装**
-  - Backend: pytest + FastAPI test client
-  - Frontend: Jest + Angular Testing Utilities
-- [ ] **エラーハンドリング強化**
-  - Global error handler
-  - User-friendly error messages
-- [ ] **ローディング状態表示**
-  - API呼び出し中のスピナー
-  - Progressive loading
-
-### 中期改善 (1-2ヶ月)
-- [ ] **データベース導入**
-  - PostgreSQL/MySQL integration
-  - データ永続化・高速化
-- [ ] **認証・認可**
-  - JWT authentication
-  - Role-based access control
-- [ ] **リアルタイム更新**
-  - WebSocket integration
-  - Live data streaming
-
-### 長期改善 (3-6ヶ月)
-- [ ] **高度な分析機能**
-  - Machine learning integration
-  - 予測分析
-  - A/B testing framework
-- [ ] **モバイル対応**
-  - Progressive Web App (PWA)
-  - Responsive design improvements
-- [ ] **パフォーマンス最適化**
-  - CDN integration
-  - Caching strategies
-  - Database optimization
-
 ### スケーリング計画
 - [ ] **Microservices化**
   - Service decomposition
